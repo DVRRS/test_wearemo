@@ -65,11 +65,25 @@ Para Postman se envían las cURL para ser importadas.
 
 ![postman](https://github.com/DVRRS/test_wearemo/assets/69321668/26cc2996-1dd1-4022-9c04-bbfa726020e4)
 
+**PRUEBAS**
+
+Se realizaron las pruebas unitarias a la función más importante que le hace consultas al endpoint (get_postcodes1), obteniendo resultados satisfactorios.
+
+![tests](https://github.com/DVRRS/test_wearemo/assets/69321668/0edd6a7a-68bb-4bd9-9123-ff5169950ac0)
+
+**DOCKER**
+
+Se generó la imagen del contenedor.
+
+![docker](https://github.com/DVRRS/test_wearemo/assets/69321668/a371abf6-c415-417b-80ea-fcbc58686c8c)
+
+
 
 **PUNTOS A MEJORAR:**
 Desarrollo del middlewares que evite que el proyecto se dañe cuando el usuario agrega los datos de solicitud de manera erronea (si llega a pasar, con guardar cualquier archivo (sin modificar nada) el proyecto se reactiva).
 Desarrollo del manejo de intentos, ya que en ocasiones el servicio arroja que no encuentra la tabla, esto se soluciona realizando una petición nuevamente (reintento).
 Desarrollo de un código que permita una consulta más óptima en recursos y tiempo.
+Implementación del contenedor con registry e implementarlo en cloud run.
 
 
 
