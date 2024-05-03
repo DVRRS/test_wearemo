@@ -24,7 +24,7 @@ El segundo microservicio es tipo POST cuya ruta es /m2, la cURL y el body se enc
 
 ![modulo_m2](https://github.com/DVRRS/test_wearemo/assets/69321668/2b6d3228-444a-40ab-9ff6-386bcc695109)
 
-Al realizar una solicitud GET a la ruta del microservicio 2, se lee la tabla que se encuentra en BigQuery, tomando los valores de lat y lon como parametros de la función que se encarga de realizar la solicitud al endpoint de la api de la UK, se realiza un procesamiento del resultado, determinando cual es el codigo postal más cercano teniendo en cuenta el valor '___' del JSON response del endpoint, solamente se obtiene el postcode, este dato se almacena en una nueva tabla en BigQuery junto con las columnas de lat y lon.
+Al realizar una solicitud GET a la ruta del microservicio 2, se lee la tabla que se encuentra en BigQuery, tomando los valores de lat y lon como parámetros de la función que se encarga de realizar la solicitud al endpoint de la api de la UK, se realiza un procesamiento del resultado, determinando cual es el codigo postal más cercano teniendo en cuenta el valor 'distance' del JSON response del endpoint, solamente se obtiene el postcode, este dato se almacena en una nueva tabla en BigQuery junto con las columnas de lat y lon.
 
 Para colocar en funcionamiento el proyecto, se debe correr el siguiente comando: uvicorn main:app --reload para que se mantenga escuchando solicitudes.
 
@@ -32,8 +32,33 @@ Se pueden realizar peticiones al proyecto mediante el docs de FastAPI, y tambié
 
 ![docs](https://github.com/DVRRS/test_wearemo/assets/69321668/6f583deb-d4fe-41c2-a653-5fe02b37cd34)
 
+Para realizar consultas al microservicio 1, se debe agregar la información del bucket y blob, donde se encuentra almacenado el archivo del proyecto. Esta información se comparte en el correo.
 
+![m1_1](https://github.com/DVRRS/test_wearemo/assets/69321668/95f13301-ef08-4899-9c9c-7f132b915c08)
+
+Una vez agregada la información requerida, se obtiene como resultado:
+
+![responsem1](https://github.com/DVRRS/test_wearemo/assets/69321668/99ce2c48-eb2b-46fd-8bd8-b480451f7d84)
+
+Para realizar consultas al microservicio 2, se debe realizar la solicitud GET primero o que ya exista la tabla con los datos de latitud y longitud; adicionalmente, la información de start y end
+
+![m2_2](https://github.com/DVRRS/test_wearemo/assets/69321668/826107c5-2d50-4b23-abe8-a9816e9e03e2)
+
+Al realizar la solicitud, el microservicio responde:
+
+![m2_3](https://github.com/DVRRS/test_wearemo/assets/69321668/c2114423-dd81-42bf-b8c9-831183874b00)
+
+Adicionalmente, se tienen las siguientes impresiones en pantalla, que nos indica si las coordenas consultadas generaron un postcode y si se subieron a bigquery.
+
+![m2_4](https://github.com/DVRRS/test_wearemo/assets/69321668/c2a453cd-9f81-4575-8688-d8e3ffe02adb)
+
+Para Postman se envían las cURL para ser importadas.
 
 ![postman](https://github.com/DVRRS/test_wearemo/assets/69321668/26cc2996-1dd1-4022-9c04-bbfa726020e4)
+
+
+PUNTOS A MEJORAR:
+Desarrollo del middlewares que evite que el proyecto se dañe cuando el usuario agrega los datos de solicitud de manera erronea (si llega a pasar, con guardar cualquier archivo (sin modificar nada) el proyecto se reactiva).
+
 
 
