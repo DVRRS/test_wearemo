@@ -29,6 +29,7 @@ def insert_data_to_bigquery(table_result, data):
         table = bigquery_client.get_table(table_ref)
     except NotFound:
         schema = [
+            bigquery.SchemaField("id", "INTEGER"),
             bigquery.SchemaField("lat", "FLOAT"),
             bigquery.SchemaField("lon", "FLOAT"),
             bigquery.SchemaField("postcode", "STRING")
@@ -44,8 +45,8 @@ def insert_data_to_bigquery(table_result, data):
     else:
         print("Error inserting data into BigQuery:", errors)
 
-def read_root():
-    query = f"SELECT * FROM `{database_name}.{table_db}` LIMIT 11"
+def read_root(start, end):
+    query = f"SELECT * FROM `{database_name}.{table_db}` WHERE id BETWEEN {start} AND {end}"
     query_job = bigquery_client.query(query)
     rows = query_job.result()
     results = [dict(row) for row in rows]
@@ -59,8 +60,7 @@ def read_root():
         result['postcode'] = postcode
         postcode_results.append(result)
 
-    table_name_new = "nueva_tabla"
     for result in postcode_results:
-        insert_data_to_bigquery(table_name_new, result)
+        insert_data_to_bigquery(table_new, result)
 
     return {"message": "Process completed successfully."}

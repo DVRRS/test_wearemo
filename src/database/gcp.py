@@ -42,6 +42,9 @@ def read_csv(bucket, blob):
 
     df = df.dropna()
 
+    # Agregar una columna de identificación única a cada fila
+    df['id'] = range(1, len(df) + 1)
+
     total_records = len(df)
     total_records = int(total_records)
 
@@ -63,4 +66,4 @@ def read_csv(bucket, blob):
 
         return JSONResponse(content={"total_records": total_records, "rows_uploaded_to_bq": num_rows})
     else:
-        return JSONResponse(content={"message": "No rows with null values ​​were loaded."})
+        return JSONResponse(content={"message": "No rows with null values ​​were loaded."}) 

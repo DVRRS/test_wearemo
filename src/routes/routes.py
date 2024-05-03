@@ -1,8 +1,6 @@
 from fastapi import APIRouter, HTTPException, Query
-from src.models.itemModel import Postcode
-#from src.services.getDataProcess import read_table_from_bigquery
+from src.models.itemModel import RequestModel
 from src.services.getDataProcess import read_root
-from src.services.getPostcode import get_postcodes1
 from src.database.gcp import read_csv
 import os
 from typing import Dict
@@ -20,17 +18,13 @@ def process_data(bucket: str = Query(...), blob: str = Query(...)):
 
 
 @router.post("/m2")
-async def get_data(data: Dict[str, int]):
+async def get_data(request_model: RequestModel):
     try:
-        start = data.get('start')
-        end = data.get('end')
-        if start is None or end is None:
-            raise HTTPException(status_code=400, detail="The 'start' and 'end' parameters are required.")
+        start = request_model.start
+        end = request_model.end
 
-        results = read_root()
+        results = read_root(start, end)
         return results
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-
