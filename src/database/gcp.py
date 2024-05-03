@@ -9,8 +9,11 @@ from google.oauth2 import service_account
 load_dotenv()
 
 credentials_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+database_name = os.getenv('DATABASE_NAME')
+table_db = os.getenv('TABLE_DB')
+
 if not credentials_path:
-    raise EnvironmentError("No se encontró la ruta de las credenciales en la variable de entorno GOOGLE_APPLICATION_CREDENTIALS")
+    raise EnvironmentError("Credentials path not found in GOOGLE_APPLICATION_CREDENTIALS environment variable")
 
 credentials = service_account.Credentials.from_service_account_file(credentials_path)
 storage_client = storage.Client(credentials=credentials)
@@ -43,11 +46,9 @@ def read_csv(bucket, blob):
     total_records = int(total_records)
 
     if total_records > 0:
-        dataset_id = 'verdant_cascade_422020'
-        table_id = 'test_weare'
-
-        dataset_ref = bigquery_client.dataset(dataset_id)
-        table_ref = dataset_ref.table(table_id)
+        
+        dataset_ref = bigquery_client.dataset(database_name)
+        table_ref = dataset_ref.table(table_db)
 
         job_config = bigquery.LoadJobConfig()
         job_config.write_disposition = bigquery.WriteDisposition.WRITE_TRUNCATE
@@ -62,4 +63,4 @@ def read_csv(bucket, blob):
 
         return JSONResponse(content={"total_records": total_records, "rows_uploaded_to_bq": num_rows})
     else:
-        return JSONResponse(content={"message": "No se cargaron filas con valores nulos."})
+        return JSONResponse(content={"message": "No rows with null values ​​were loaded."})

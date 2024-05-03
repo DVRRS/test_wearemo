@@ -1,12 +1,16 @@
+import os
 import requests
 import json
 import pandas as pd
+from dotenv import load_dotenv
 
+load_dotenv()
+
+endpoint = os.getenv("SERVICE_URL_UK")
 
 def get_postcodes1(lat, lon):
-    #print(lat, lon)
     if lat is not None and lon is not None:  
-        url = f"https://api.postcodes.io/postcodes?lat={lat}&lon={lon}"
+        url = f"{endpoint}lat={lat}&lon={lon}"
         response = requests.get(url)
  
         try:
