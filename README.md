@@ -18,9 +18,13 @@ El primer microservicio es tipo GET cuya ruta es /m1, la cURL se encuentra en .e
 
 ![modulo_m1](https://github.com/DVRRS/test_wearemo/assets/69321668/6c871afd-e48d-4601-ad50-6f594d19ee55)
 
+Al realizar una solicitud GET a la ruta del microservicio 1, se lee el archivo que se encuentra en GCS, se hace un procesamiento de los datos, quitando los nan y las '' a los datos, posteriomente, se carga la data procesada a una tabla de BigQuery. Esto se hace por medio de una cuenta de servicio asociada a estos dos servicios.
+
 El segundo microservicio es tipo POST cuya ruta es /m2, la cURL y el body se encuentran en .env. Los modulos del segundo microservicio son los siguientes (ignorar el pycache).
 
 ![modulo_m2](https://github.com/DVRRS/test_wearemo/assets/69321668/2b6d3228-444a-40ab-9ff6-386bcc695109)
+
+Al realizar una solicitud GET a la ruta del microservicio 2, se lee la tabla que se encuentra en BigQuery, tomando los valores de lat y lon como parametros de la función que se encarga de realizar la solicitud al endpoint de la api de la UK, se realiza un procesamiento del resultado, determinando cual es el codigo postal más cercano teniendo en cuenta el valor '___' del JSON response del endpoint, solamente se obtiene el postcode, este dato se almacena en una nueva tabla en BigQuery junto con las columnas de lat y lon.
 
 Para colocar en funcionamiento el proyecto, se debe correr el siguiente comando: uvicorn main:app --reload para que se mantenga escuchando solicitudes.
 
