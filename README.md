@@ -19,14 +19,22 @@ El modulo del microservicio es el siguiente:
 
 ![modulo_m1](https://github.com/DVRRS/test_wearemo/assets/69321668/6c871afd-e48d-4601-ad50-6f594d19ee55)
 
-Al realizar una solicitud GET a la ruta del microservicio 1, se lee el archivo que se encuentra en GCS, se hace un procesamiento de los datos, quitando los nan y las "''" a los datos, posteriomente, se carga la data procesada a una tabla de BigQuery. Esto se hace por medio de una cuenta de servicio asociada a estos dos servicios.
+Al realizar una solicitud GET a la ruta del microservicio 1, se lee el archivo que se encuentra en GCS, se hace un procesamiento de los datos, quitando los nan y las "''" a los datos, posteriomente, se carga la data procesada a una tabla de BigQuery, relacionando un id único a cada coordenada. Esto se hace por medio de una cuenta de servicio asociada a estos dos servicios.
+_Obteniendo como resultado en BigQuery_
+
+![bqm1](https://github.com/DVRRS/test_wearemo/assets/69321668/50f464b5-ac2b-4206-a33f-93b61452d69b)
+
 
 **El segundo microservicio es tipo POST cuya ruta es /m2**, la cURL y el body se encuentran en .env. Los modulos del segundo microservicio son los siguientes (ignorar el pycache).
 
 ![modulo_m2](https://github.com/DVRRS/test_wearemo/assets/69321668/2b6d3228-444a-40ab-9ff6-386bcc695109)
 
-Al realizar una solicitud GET a la ruta del microservicio 2, se lee la tabla que se encuentra en BigQuery, tomando los valores de lat y lon como parámetros de la función que se encarga de realizar la solicitud al endpoint de la api de la UK, se realiza un procesamiento del resultado, determinando cual es el codigo postal más cercano teniendo en cuenta el valor 'distance' del JSON response del endpoint, solamente se obtiene el postcode, este dato se almacena en una nueva tabla en BigQuery junto con las columnas de lat y lon.
+Al realizar una solicitud GET a la ruta del microservicio 2, se lee la tabla que se encuentra en BigQuery, tomando los valores de lat y lon como parámetros de la función que se encarga de realizar la solicitud al endpoint (getPostcode) de la api de la UK, se realiza un procesamiento del resultado, determinando cual es el código postal más cercano teniendo en cuenta el valor 'distance' del JSON response del endpoint, solamente se obtiene el postcode, este dato se almacena en una nueva tabla en BigQuery junto con las columnas de id, lat y lon.
+_Obteniendo como resultado en BigQuery_
 
+![bqm2](https://github.com/DVRRS/test_wearemo/assets/69321668/b08007ab-81da-4af7-9f0e-bc986e713264)
+
+**FUNCIONAMIENTO**
 Para colocar en funcionamiento el proyecto, se debe correr el siguiente comando: uvicorn main:app --reload para que se mantenga escuchando solicitudes.
 
 Se pueden realizar peticiones al proyecto mediante el docs de FastAPI, y también desde postman.
@@ -41,7 +49,7 @@ Una vez agregada la información requerida, se obtiene como resultado:
 
 ![responsem1](https://github.com/DVRRS/test_wearemo/assets/69321668/99ce2c48-eb2b-46fd-8bd8-b480451f7d84)
 
-Para realizar consultas al microservicio 2, se debe realizar la solicitud GET primero o que ya exista la tabla con los datos de latitud y longitud; adicionalmente, la información de start y end
+Para realizar consultas al microservicio 2, se debe realizar la solicitud GET primero o que ya exista la tabla con los datos de latitud y longitud; adicionalmente, la información de start y end que son parametros que dan la posibilidad al usuario de iterar las coordenadas que desea por medio del id asociado a cada coordenada.
 
 ![m2_2](https://github.com/DVRRS/test_wearemo/assets/69321668/826107c5-2d50-4b23-abe8-a9816e9e03e2)
 
@@ -60,6 +68,8 @@ Para Postman se envían las cURL para ser importadas.
 
 **PUNTOS A MEJORAR:**
 Desarrollo del middlewares que evite que el proyecto se dañe cuando el usuario agrega los datos de solicitud de manera erronea (si llega a pasar, con guardar cualquier archivo (sin modificar nada) el proyecto se reactiva).
+Desarrollo del manejo de intentos, ya que en ocasiones el servicio arroja que no encuentra la tabla, esto se soluciona realizando una petición nuevamente (reintento).
+Desarrollo de un código que permita una consulta más óptima en recursos y tiempo.
 
 
 
