@@ -30,8 +30,10 @@ Para colocar en funcionamiento el proyecto, se debe correr el siguiente comando:
 
 Se pueden realizar peticiones al proyecto mediante el docs de FastAPI, y también desde postman.
 
-** colocar imagen de docs
+![docs](https://github.com/DVRRS/test_wearemo/assets/69321668/6f583deb-d4fe-41c2-a653-5fe02b37cd34)
 
-** colocar imagen de postman
+
+
+![postman](https://github.com/DVRRS/test_wearemo/assets/69321668/26cc2996-1dd1-4022-9c04-bbfa726020e4)
 
 
