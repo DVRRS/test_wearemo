@@ -42,7 +42,6 @@ def read_csv(bucket, blob):
 
     df = df.dropna()
 
-    # Agregar una columna de identificación única a cada fila
     df['id'] = range(1, len(df) + 1)
 
     total_records = len(df)
