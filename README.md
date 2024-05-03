@@ -35,6 +35,7 @@ _Obteniendo como resultado en BigQuery_
 ![bqm2](https://github.com/DVRRS/test_wearemo/assets/69321668/b08007ab-81da-4af7-9f0e-bc986e713264)
 
 **FUNCIONAMIENTO**
+
 Para colocar en funcionamiento el proyecto, se debe correr el siguiente comando: uvicorn main:app --reload para que se mantenga escuchando solicitudes.
 
 Se pueden realizar peticiones al proyecto mediante el docs de FastAPI, y también desde postman.
@@ -80,9 +81,13 @@ Se generó la imagen del contenedor.
 
 
 **PUNTOS A MEJORAR:**
+
 Desarrollo del middlewares que evite que el proyecto se dañe cuando el usuario agrega los datos de solicitud de manera erronea (si llega a pasar, con guardar cualquier archivo (sin modificar nada) el proyecto se reactiva).
+
 Desarrollo del manejo de intentos, ya que en ocasiones el servicio arroja que no encuentra la tabla, esto se soluciona realizando una petición nuevamente (reintento).
+
 Desarrollo de un código que permita una consulta más óptima en recursos y tiempo.
+
 Implementación del contenedor con registry e implementarlo en cloud run.
 
 
