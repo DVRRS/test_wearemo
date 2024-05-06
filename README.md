@@ -29,7 +29,7 @@ _Obteniendo como resultado en BigQuery_
 
 ![modulo_m2](https://github.com/DVRRS/test_wearemo/assets/69321668/2b6d3228-444a-40ab-9ff6-386bcc695109)
 
-Al realizar una solicitud GET a la ruta del microservicio 2, se lee la tabla que se encuentra en BigQuery, tomando los valores de lat y lon como parámetros de la función que se encarga de realizar la solicitud al endpoint (getPostcode) de la api de la UK, se realiza un procesamiento del resultado, determinando cual es el código postal más cercano teniendo en cuenta el valor 'distance' del JSON response del endpoint, solamente se obtiene el postcode, este dato se almacena en una nueva tabla en BigQuery junto con las columnas de id, lat y lon.
+Al realizar una solicitud POST a la ruta del microservicio 2, se lee la tabla que se encuentra en BigQuery, tomando los valores de lat y lon como parámetros de la función que se encarga de realizar la solicitud al endpoint (getPostcode) de la api de la UK, se realiza un procesamiento del resultado, determinando cual es el código postal más cercano teniendo en cuenta el valor 'distance' del JSON response del endpoint, solamente se obtiene el postcode, este dato se almacena en una nueva tabla en BigQuery junto con las columnas de id, lat y lon.
 _Obteniendo como resultado en BigQuery_
 
 ![bqm2](https://github.com/DVRRS/test_wearemo/assets/69321668/b08007ab-81da-4af7-9f0e-bc986e713264)
